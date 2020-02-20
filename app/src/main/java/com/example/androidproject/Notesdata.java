@@ -1,11 +1,13 @@
 package com.example.androidproject;
 
+import java.util.ArrayList;
+
 public class Notesdata {
 
     int id;
     String category , notesTitle, description, date;
 
-    public Notesdata(int id, String category, String notesTitle, String description, String date) {
+    public Notesdata(int id) {
         this.id = id;
         this.category = category;
         this.notesTitle = notesTitle;
@@ -32,4 +34,7 @@ public class Notesdata {
     public String getDate() {
         return date;
     }
+
+    public static ArrayList<Notesdata> notesdata = new ArrayList<>();
+
 }

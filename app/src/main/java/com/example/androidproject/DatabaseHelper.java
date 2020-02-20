@@ -20,6 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTESTITLE = "note";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_LATITUDE = "latitude";
+    private static final String COLUMN_LONGITUDE = "longitude";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null,DATABASE_VERSION);
@@ -64,6 +66,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     Cursor getAllEmployees() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+    Cursor getAllCategories(){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT COLUMN_CATEGORY FROM " + TABLE_NAME, null);
     }
 
     boolean updateNote(int id, String category, String noteTitle, String description){

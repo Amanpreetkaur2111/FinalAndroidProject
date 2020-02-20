@@ -16,6 +16,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
 
     DatabaseHelper mDatabase;
 
+
     EditText ET_category, ET_NoteTitle, ET_description;
     Button BT_save;
     @Override
@@ -28,7 +29,6 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         ET_description = findViewById(R.id.E_description);
 
        findViewById(R.id.btn_save).setOnClickListener(this);
-
 
        mDatabase = new DatabaseHelper(this);
     }
@@ -58,6 +58,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         else
             Toast.makeText(this,"Not Added",Toast.LENGTH_SHORT).show();
     }
+
 
 
 }
