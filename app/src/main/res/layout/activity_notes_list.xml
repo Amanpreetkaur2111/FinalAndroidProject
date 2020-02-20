@@ -4,13 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".NotesList">
 
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/Notes_listview"
-        android:layout_marginTop="40dp"/>
+        android:layout_weight="1">
+
+    </ListView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Note"
+        android:textSize="30sp"
+        android:id="@+id/add_note"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

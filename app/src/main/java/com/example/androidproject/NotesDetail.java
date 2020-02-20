@@ -2,6 +2,8 @@ package com.example.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,12 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
 
     EditText ET_category, ET_NoteTitle, ET_description;
     Button BT_save;
+    Location location;
+    Notesdata n;
+
+
+//    Location where note has taken
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +35,20 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         ET_category = findViewById(R.id.E_category);
         ET_NoteTitle = findViewById(R.id.E_noteTitle);
         ET_description = findViewById(R.id.E_description);
+
+        Intent i = getIntent();
+        n = (Notesdata) i.getSerializableExtra("object");
+
+
+
+        if (n != null){
+
+            ET_category.setText(n.category);
+            ET_NoteTitle.setText(n.notesTitle);
+            ET_description.setText(n.description);
+        }
+
+
 
        findViewById(R.id.btn_save).setOnClickListener(this);
 
@@ -53,10 +75,24 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String date = df.format(calendar.getTime());
 
-        if(mDatabase.addNotes(category,noteTitle,description,date))
-            Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"Not Added",Toast.LENGTH_SHORT).show();
+
+        if (n == null){
+
+            // add
+            if(mDatabase.addNotes(category,noteTitle,description,date,12.34,56.78))
+                Toast.makeText(this,"Added",Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this,"Not Added",Toast.LENGTH_SHORT).show();
+
+        }else{
+
+            if(mDatabase.updateNote(n.id,category, noteTitle, description))
+                Toast.makeText(this,"Updated",Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this,"Not updated",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 

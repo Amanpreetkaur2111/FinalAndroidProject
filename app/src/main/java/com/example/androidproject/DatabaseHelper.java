@@ -36,7 +36,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
               COLUMN_CATEGORY + " varchar(200) NOT NULL, " +
               COLUMN_NOTESTITLE + " varchar(200) NOT NULL, " +
               COLUMN_DESCRIPTION + " varchar(200) NOT NULL, " +
-              COLUMN_DATE + " varchar(200) NOT NULL);";
+              COLUMN_DATE + " varchar(200) NOT NULL, " +
+              COLUMN_LATITUDE + " double NOT NULL, " +
+              COLUMN_LONGITUDE + " double NOT NULL);";
       db.execSQL(sql);
     }
 
@@ -49,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    boolean addNotes(String category, String noteTitle, String description, String date){
+    boolean addNotes(String category, String noteTitle, String description, String date, double lat, double lng){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -58,20 +60,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_NOTESTITLE, noteTitle);
         contentValues.put(COLUMN_DESCRIPTION, description);
         contentValues.put(COLUMN_DATE, date);
+        contentValues.put(COLUMN_LATITUDE, lat);
+        contentValues.put(COLUMN_LONGITUDE, lng);
 
         return sqLiteDatabase.insert(TABLE_NAME,null,contentValues) != -1;
     }
 
 
-    Cursor getAllEmployees() {
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-    }
 
     Cursor getAllCategories(){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT COLUMN_CATEGORY FROM " + TABLE_NAME, null);
+        return sqLiteDatabase.rawQuery("SELECT DISTINCT " + COLUMN_CATEGORY + " FROM " + TABLE_NAME, null);
     }
+
+    Cursor getAllNotes(String cat){
+       SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+       return sqLiteDatabase.rawQuery("SELECT * " + " FROM " + TABLE_NAME +
+               " WHERE " + COLUMN_CATEGORY + "=?", new String[]{cat});
+    }
+
+
+
 
     boolean updateNote(int id, String category, String noteTitle, String description){
 
@@ -84,10 +93,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return sqLiteDatabase.update(TABLE_NAME,contentValues,COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
     }
-
-    boolean deleteNote(int id){
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-
-        return sqLiteDatabase.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
-    }
+//
+//    boolean deleteNote(int id){
+//        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+//
+//        return sqLiteDatabase.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
+//    }
 }

@@ -17,12 +17,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     DatabaseHelper mDatabase;
-    public static List<Notesdata> CategoriesList;
+    public static List<String> CategoriesList;
     Button AddNote;
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
-    public static int categoryPosition;
-//    ArrayList<String> categName;
+
+
 
 
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
       mDatabase = new DatabaseHelper(this);
       CategoriesList = new ArrayList<>();
-      loadEmployees();
+      loadCategory();
 
 
 
@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           @Override
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-              categoryPosition = position;
+
               Intent intent = new Intent(MainActivity.this, NotesList.class);
-              intent.putExtra("id",position);
+              intent.putExtra("CAT",CategoriesList.get(position));
               startActivity(intent);
           }
       });
@@ -57,19 +57,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void loadEmployees(){
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        loadCategory();
+
+
+    }
+
+    private void loadCategory(){
+
+
+        CategoriesList.clear();
         Cursor cursor = mDatabase.getAllCategories();
 
         if(cursor.moveToFirst()){
            do{
-               CategoriesList.add(new Notesdata(
-                       cursor.getInt(0)
-               ));
+              CategoriesList.add(cursor.getString(0));
            } while (cursor.moveToNext());
            cursor.close();
 
-//           arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,CategoriesList,mDatabase);
+         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,CategoriesList);
            listView.setAdapter(arrayAdapter);
         }
     }
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.add_btn:
                 Intent intent = new Intent(MainActivity.this,NotesDetail.class);
+
                 startActivity(intent);
         }
     }
