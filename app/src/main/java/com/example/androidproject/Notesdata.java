@@ -7,9 +7,9 @@ public class Notesdata implements Serializable {
 
     int id;
     double lat,lng;
-    String category , notesTitle, description, date;
+    String category , notesTitle, description, date,audio;
 
-    public Notesdata(int id, String category, String notesTitle, String description, String date, double lat,double lng) {
+    public Notesdata(int id, String category, String notesTitle, String description, String date, double lat,double lng,String audio) {
         this.id = id;
         this.category = category;
         this.notesTitle = notesTitle;
@@ -17,6 +17,7 @@ public class Notesdata implements Serializable {
         this.date = date;
         this.lat = lat;
         this.lng = lng;
+        this.audio = audio;
     }
 
     public int getId() {
@@ -45,6 +46,10 @@ public class Notesdata implements Serializable {
 
     public double getLng() {
         return lng;
+    }
+
+    public String getAudio() {
+        return audio;
     }
 
     public static ArrayList<Notesdata> notesdata = new ArrayList<>();

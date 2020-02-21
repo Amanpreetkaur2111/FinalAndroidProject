@@ -25,7 +25,7 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
 
 
     String category_name = "";
-    ArrayAdapter<String> arrayAdapter;
+    NotesAdapter notesAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +53,13 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
                         }
 
                     }
-                    arrayAdapter = new ArrayAdapter(NotesList.this, android.R.layout.simple_list_item_1,filter);
-                    listView.setAdapter(arrayAdapter);
+                    notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, filter, mDatabase);
+                    listView.setAdapter(notesAdapter);
                 }
 
                 if(newText.isEmpty()){
 
-                    arrayAdapter = new ArrayAdapter(NotesList.this, android.R.layout.simple_list_item_1,notesTitle);
-                    listView.setAdapter(arrayAdapter);
+                    loadNotesTitle();
 
                 }
                 return false;
@@ -77,6 +76,7 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
 
       findViewById(R.id.add_note).setOnClickListener(this);
 
+        filter = new ArrayList<>();
         notesTitle = new ArrayList<>();
         AllData = new ArrayList<>();
         loadNotesTitle();
@@ -102,26 +102,27 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
 
     private void loadNotesTitle(){
 
-        notesTitle.clear();
+       // notesTitle.clear();
         AllData.clear();
         Cursor cursor = mDatabase.getAllNotes(category_name);
 
         if(cursor.moveToFirst()){
             do{
-                notesTitle.add(cursor.getString(2));
+                //notesTitle.add(cursor.getString(2));
                 AllData.add(new Notesdata(cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getDouble(5),
-                        cursor.getDouble(6)));
+                        cursor.getDouble(6),
+                        cursor.getString(7)));
 
             } while (cursor.moveToNext());
             cursor.close();
 
-            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,notesTitle);
-            listView.setAdapter(arrayAdapter);
+            notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, AllData, mDatabase);
+            listView.setAdapter(notesAdapter);
         }
     }
 

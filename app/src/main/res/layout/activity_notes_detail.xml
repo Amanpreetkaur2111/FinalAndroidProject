@@ -14,8 +14,10 @@
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Category"
-      android:textSize="25sp"
+        android:textStyle="bold"
+      android:textColor="#000"
+      android:text="CATEGORY"
+      android:textSize="20sp"
       android:layout_marginTop="40dp"
       android:layout_marginLeft="20dp"
       />
@@ -36,8 +38,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note Title"
-            android:textSize="25sp"
+            android:text="NOTE TITLE"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#000"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             />
@@ -55,8 +59,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="25dp"
+        android:text="DESCRIPTION"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#000"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp" />
     <EditText
@@ -67,34 +73,95 @@
         android:id="@+id/E_description"
         />
 
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal">
 
 
-    <ImageView
+     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="200dp"
+        android:layout_width="254dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_image_black_24dp" />
-    <Button
-        android:id="@+id/capture_image_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Capture Image"
-        style="@style/Base.Widget.AppCompat.Button.Colored"/>
 
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/location_btn"
-        android:src="@drawable/ic_navigation_black_24dp"/>
+        android:id="@+id/btn_capture"
+        android:layout_width="76dp"
+        android:layout_height="168dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="0dp"
+        android:background="#fff"
+        android:src="@drawable/ic_photo_camera_black_24dp" />
+
+     <ImageButton
+         android:id="@+id/btn_location"
+         android:layout_width="50dp"
+         android:layout_height="171dp"
+         android:background="#fff"
+         android:src="@drawable/ic_place_black_24dp"
+
+         />
+
+ </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+   <ImageButton
+       android:id="@+id/btn_record"
+       android:layout_width="97dp"
+       android:layout_height="38dp"
+       android:background="#fff"
+       android:src="@drawable/ic_keyboard_voice_black_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_stop_record"
+            android:layout_width="97dp"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:src="@drawable/ic_mic_off_black_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="97dp"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:src="@drawable/ic_play_arrow_black_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_stop"
+            android:layout_width="97dp"
+            android:layout_height="38dp"
+            android:background="#fff"
+            android:src="@drawable/ic_pause_black_24dp"/>
+
+
+
+</LinearLayout>
+
+
+
+
+
+
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Save"
+        android:layout_marginTop="60dp"
+        android:text="SAVE"
+        android:textColor="#fff"
+        android:background="#000"
         android:id="@+id/btn_save"/>
 
 

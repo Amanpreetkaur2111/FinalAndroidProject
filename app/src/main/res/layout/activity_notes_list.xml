@@ -7,10 +7,25 @@
     android:orientation="vertical"
     tools:context=".NotesList">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="#000"/>
+
+
     <SearchView
         android:id="@+id/SearchOption"
         android:layout_width="match_parent"
+        android:queryHint="Search Notes"
+
         android:layout_height="wrap_content"/>
+
+
+
 
 
     <ListView
@@ -24,10 +39,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Note"
-        android:textSize="30sp"
+        android:text="ADD NOTE"
+        android:textSize="25dp"
         android:id="@+id/add_note"
+        android:textAlignment="center"
+        android:background="#000"
+        android:textColor="#fff"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="20dp"/>
+       />
 
 </LinearLayout>

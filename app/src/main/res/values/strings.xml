@@ -3,4 +3,5 @@
     <string name="api_key">AIzaSyAsIACaNTeGVcw4WY3dZG7OpZbYuxI7WvY</string>
     <string name="api_key_places">AIzaSyAsIACaNTeGVcw4WY3dZG7OpZbYuxI7WvY</string>
     <string name="title_activity_google">Map</string>
+    <string name="delete">Delete</string>
 </resources>

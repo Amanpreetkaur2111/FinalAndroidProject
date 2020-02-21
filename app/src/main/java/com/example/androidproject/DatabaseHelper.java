@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_LATITUDE = "latitude";
     private static final String COLUMN_LONGITUDE = "longitude";
+    private static final String COLUMN_AUDIO = "audio";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null,DATABASE_VERSION);
@@ -38,7 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
               COLUMN_DESCRIPTION + " varchar(200) NOT NULL, " +
               COLUMN_DATE + " varchar(200) NOT NULL, " +
               COLUMN_LATITUDE + " double NOT NULL, " +
-              COLUMN_LONGITUDE + " double NOT NULL);";
+              COLUMN_LONGITUDE + " double NOT NULL, " +
+              COLUMN_AUDIO + " varchar(200) NOT NULL);";
       db.execSQL(sql);
     }
 
@@ -51,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    boolean addNotes(String category, String noteTitle, String description, String date, double lat, double lng){
+    boolean addNotes(String category, String noteTitle, String description, String date, double lat, double lng,String audio){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -62,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_LATITUDE, lat);
         contentValues.put(COLUMN_LONGITUDE, lng);
+        contentValues.put(COLUMN_AUDIO,audio);
 
         return sqLiteDatabase.insert(TABLE_NAME,null,contentValues) != -1;
     }
@@ -85,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
 
-    boolean updateNote(int id, String category, String noteTitle, String description, double lat, double lng){
+    boolean updateNote(int id, String category, String noteTitle, String description, double lat, double lng,String audio){
 
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
@@ -95,13 +98,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DESCRIPTION, description);
         contentValues.put(COLUMN_LATITUDE, lat);
         contentValues.put(COLUMN_LONGITUDE, lng);
+        contentValues.put(COLUMN_AUDIO,audio);
 
         return sqLiteDatabase.update(TABLE_NAME,contentValues,COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
     }
-//
-//    boolean deleteNote(int id){
-//        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-//
-//        return sqLiteDatabase.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
-//    }
+
+    boolean deleteNote(int id){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        return sqLiteDatabase.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
+    }
 }
