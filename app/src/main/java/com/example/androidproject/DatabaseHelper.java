@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
 
-    boolean updateNote(int id, String category, String noteTitle, String description){
+    boolean updateNote(int id, String category, String noteTitle, String description, double lat, double lng){
 
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
@@ -93,6 +93,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CATEGORY, category);
         contentValues.put(COLUMN_NOTESTITLE, noteTitle);
         contentValues.put(COLUMN_DESCRIPTION, description);
+        contentValues.put(COLUMN_LATITUDE, lat);
+        contentValues.put(COLUMN_LONGITUDE, lng);
 
         return sqLiteDatabase.update(TABLE_NAME,contentValues,COLUMN_ID + "=?", new String[]{String.valueOf(id)}) > 0;
     }

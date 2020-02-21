@@ -264,6 +264,23 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String date = df.format(calendar.getTime());
 
+        if (category.isEmpty()) {
+            ET_category.setError("name field is mandatory");
+            ET_category.requestFocus();
+            return;
+        }
+
+        if (noteTitle.isEmpty()) {
+            ET_NoteTitle.setError("salary field cannot be empty");
+            ET_NoteTitle.requestFocus();
+            return;
+        }
+
+        if (description.isEmpty()) {
+            ET_description.setError("salary field cannot be empty");
+            ET_description.requestFocus();
+            return;
+        }
 
         if (n == null){
 
@@ -275,7 +292,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
 
         }else{
 
-            if(mDatabase.updateNote(n.id,category, noteTitle, description))
+            if(mDatabase.updateNote(n.id,category, noteTitle, description,Nlocation.getLatitude(),Nlocation.getLongitude()))
                 Toast.makeText(this,"Updated",Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(this,"Not updated",Toast.LENGTH_SHORT).show();

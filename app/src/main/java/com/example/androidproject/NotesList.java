@@ -9,13 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NotesList extends AppCompatActivity implements View.OnClickListener{
 
-
+    SearchView searchoption;
+    List<Notesdata>filter;
     ListView listView;
     DatabaseHelper mDatabase;
     public  static List<String> notesTitle;
@@ -28,6 +30,42 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+        searchoption = findViewById(R.id.SearchOption);
+
+        searchoption.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!newText.isEmpty()){
+                    filter.clear();
+                    for(int i =0;i<AllData.size();i++){
+
+
+                        Notesdata getdata = AllData.get(i);
+                        if(getdata.notesTitle.contains(newText)){
+
+                            filter.add(getdata);
+
+                        }
+
+                    }
+                    arrayAdapter = new ArrayAdapter(NotesList.this, android.R.layout.simple_list_item_1,filter);
+                    listView.setAdapter(arrayAdapter);
+                }
+
+                if(newText.isEmpty()){
+
+                    arrayAdapter = new ArrayAdapter(NotesList.this, android.R.layout.simple_list_item_1,notesTitle);
+                    listView.setAdapter(arrayAdapter);
+
+                }
+                return false;
+            }
+        });
 
 
         Intent i = getIntent();
