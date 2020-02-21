@@ -47,6 +47,6 @@ public class Notesdata implements Serializable {
         return lng;
     }
 
-//    public static ArrayList<Notesdata> notesdata = new ArrayList<>();
+    public static ArrayList<Notesdata> notesdata = new ArrayList<>();
 
 }

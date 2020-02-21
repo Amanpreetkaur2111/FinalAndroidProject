@@ -78,8 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
        return sqLiteDatabase.rawQuery("SELECT * " + " FROM " + TABLE_NAME +
                " WHERE " + COLUMN_CATEGORY + "=?", new String[]{cat});
     }
-
-
+//
+//    Cursor getLatLng(){
+//        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+//        return sqLiteDatabase.rawQuery( "SELECT ")
+//    }
 
 
     boolean updateNote(int id, String category, String noteTitle, String description){

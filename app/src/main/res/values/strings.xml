@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <string name="api_key">AIzaSyAKK6fQ-6Lv2irP4EEndez3cBKzz5nKVL0</string>
+    <string name="api_key_places">AIzaSyAKK6fQ-6Lv2irP4EEndez3cBKzz5nKVL0</string>
 </resources>
