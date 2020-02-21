@@ -17,9 +17,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "notes";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_CATEGORY = "category";
-    private static final String COLUMN_NOTESTITLE = "note";
+    public static final String COLUMN_NOTESTITLE = "note";
     private static final String COLUMN_DESCRIPTION = "description";
-    private static final String COLUMN_DATE = "date";
+    public static final String COLUMN_DATE = "date";
     private static final String COLUMN_LATITUDE = "latitude";
     private static final String COLUMN_LONGITUDE = "longitude";
     private static final String COLUMN_AUDIO = "audio";
@@ -87,6 +87,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return sqLiteDatabase.rawQuery( "SELECT ")
 //    }
 
+     Cursor getSortedNotes(String col,String cat){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        return sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COLUMN_CATEGORY + " =?" + " ORDER BY " + col, new String[]{cat});
+     }
 
     boolean updateNote(int id, String category, String noteTitle, String description, double lat, double lng,String audio){
 

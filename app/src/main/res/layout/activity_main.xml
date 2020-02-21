@@ -30,6 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="#000"
+        android:textColor="#fff"
         android:text="Add Note"
         android:id="@+id/add_btn"/>
 

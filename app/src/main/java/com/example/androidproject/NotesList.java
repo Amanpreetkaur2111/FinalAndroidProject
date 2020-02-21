@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -30,6 +31,10 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+
+        Button sort_by_title = findViewById(R.id.sort_title);
+        Button sort_by_date = findViewById(R.id.sort_date);
+
         searchoption = findViewById(R.id.SearchOption);
 
         searchoption.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -92,6 +97,26 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
 
             }
         });
+
+        sort_by_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadsortTitle(DatabaseHelper.COLUMN_NOTESTITLE);
+                notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, AllData, mDatabase);
+                listView.setAdapter(notesAdapter);
+
+
+            }
+        });
+
+        sort_by_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadsortTitle(DatabaseHelper.COLUMN_DATE);
+                notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, AllData, mDatabase);
+                listView.setAdapter(notesAdapter);
+            }
+        });
     }
 
     @Override
@@ -119,6 +144,30 @@ public class NotesList extends AppCompatActivity implements View.OnClickListener
                         cursor.getString(7)));
 
             } while (cursor.moveToNext());
+            cursor.close();
+
+            notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, AllData, mDatabase);
+            listView.setAdapter(notesAdapter);
+        }
+    }
+
+
+
+    private void loadsortTitle(String sort){
+        Cursor cursor = mDatabase.getSortedNotes(DatabaseHelper.COLUMN_NOTESTITLE,category_name);
+        AllData.clear();
+
+        if(cursor.moveToFirst()){
+            do{
+                AllData.add(new Notesdata(cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getDouble(5),
+                        cursor.getDouble(6),
+                        cursor.getString(7)));
+            }while ( cursor.moveToNext());
             cursor.close();
 
             notesAdapter = new NotesAdapter(NotesList.this, R.layout.list_layout_notes, AllData, mDatabase);

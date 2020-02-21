@@ -423,9 +423,13 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
             else
                 Toast.makeText(this,"Not updated",Toast.LENGTH_SHORT).show();
         }
-
-
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
+
+//    Intent intent = new Intent(this,MainActivity.class);
+
 
 
     private  boolean checkPermissions(){
