@@ -39,7 +39,7 @@ public class map_activity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     Marker homeMarker;
-    Marker destMarker;
+
 
     private final int REQUEST_CODE = 1;
 
@@ -48,7 +48,7 @@ public class map_activity extends AppCompatActivity implements OnMapReadyCallbac
     LocationRequest locationRequest;
 
     double latitude, longitude;
-    double dest_lat, dest_lng;
+    double note_lat, note_lng;
     public final int RADIUS = 1500;
 
     @Override
@@ -85,12 +85,20 @@ public class map_activity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         Intent intent = getIntent();
-        int i = intent.getExtras().getInt("loc");
+        Notesdata n = (Notesdata) intent.getSerializableExtra("loc");
 
-        //Double note_lat =
+
+//
+//              note_lat = n.getLat();
+//              note_lng = n.getLng();
+//
+//        LatLng noteLatLng = new LatLng(note_lat,note_lng);
+//        MarkerOptions options = new MarkerOptions().position(noteLatLng).title("your saved loaction")
+//                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+//        mMap.addMarker(options);
 
 
 //        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {

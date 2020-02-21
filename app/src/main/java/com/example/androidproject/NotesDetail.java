@@ -69,6 +69,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
 
     ImageView mImageView;
     Uri image_uri;
+    String notetitle;
 
     public int position;
 
@@ -84,7 +85,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
 
-    final int REQUEST_PERMISSION_CODE = 1000;
+    final int REQUEST_PERMISSION_CODE = 100;
      private static String RECORD_FILE = "/audio.3gp";
 
 
@@ -121,6 +122,8 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.btn_save).setOnClickListener(this);
         mDatabase = new DatabaseHelper(this);
 
+        String noteTitle = ET_NoteTitle.getText().toString().trim();
+        notetitle = noteTitle;
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -180,7 +183,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
           public void onClick(View v) {
 
               Intent intent = new Intent(NotesDetail.this,map_activity.class);
-              intent.putExtra("loc",position);
+              intent.putExtra("loc",n);
               startActivity(intent);
           }
           });
@@ -194,10 +197,10 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
             public void onClick(View v) {
                 if (checkPermissionDevice()) {
 
-                    RECORD_FILE = "/audio" + ET_NoteTitle+" .3gp";
+                   // RECORD_FILE = "/audio" + ET_NoteTitle+".3gp";
 
                     pathSave = getExternalCacheDir().getAbsolutePath()
-                            + RECORD_FILE;
+                            + "/" + notetitle + ".3gp";
 
                     Log.d("path", "onClick: " + pathSave);
 
@@ -228,6 +231,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 mediaRecorder.stop();
+                mediaRecorder.release();
                 btnStopRecord.setEnabled(false);
                 btnPlay.setEnabled(true);
                 btnStop.setEnabled(true);
@@ -327,24 +331,23 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
             }
             else
             {
-                Toast.makeText(this, "noppp", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "nope", Toast.LENGTH_SHORT).show();
             }
         }
 
 
-        switch (requestCode){
-            case PERMISSION_CODE: {
+        if (requestCode == PERMISSION_CODE ) {
 
-            if(grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCamera();
-            }
+               // mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
 
-            else {
-                Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show();
             }
-            }
-
         }
+
+
 
         if (requestCode == REQUEST_PERMISSION_CODE) {
            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -384,7 +387,7 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
 
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd HH:MM:SS");
         String date = df.format(calendar.getTime());
 
         if (category.isEmpty()) {
