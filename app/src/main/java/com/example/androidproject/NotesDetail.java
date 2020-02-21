@@ -92,10 +92,13 @@ public class NotesDetail extends AppCompatActivity implements View.OnClickListen
         ET_category = findViewById(R.id.E_category);
         ET_NoteTitle = findViewById(R.id.E_noteTitle);
         ET_description = findViewById(R.id.E_description);
-
+        IB_location = findViewById(R.id.location_btn);
 
         findViewById(R.id.btn_save).setOnClickListener(this);
         mDatabase = new DatabaseHelper(this);
+
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         buildLocationRequest();
         buildLocationCallBack();
